@@ -68,13 +68,12 @@ getRepoContributors(repoOwner, repoName, function(err, result) {
     console.log('Error, you have included',parse.message + '!\nPlease check your github TOKEN in the .env folder');
     throw err;
   }
+
   parse.forEach(function(name){
     console.log('Image of User: ', name.login, 'has been successfully downloaded in the avatars folder.');
     console.log('------');
-
+    console.log(name)
     //Calling function to download the images from the repository
     downloadImageByURL(name.avatar_url, name.login +'.jpg' );
   });
 });
-
-
