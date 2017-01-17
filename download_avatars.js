@@ -72,7 +72,6 @@ getRepoContributors(repoOwner, repoName, function(err, result) {
   parse.forEach(function(name){
     console.log('Image of User: ', name.login, 'has been successfully downloaded in the avatars folder.');
     console.log('------');
-    console.log(name)
     //Calling function to download the images from the repository
     downloadImageByURL(name.avatar_url, name.login +'.jpg' );
   });
