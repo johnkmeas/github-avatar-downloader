@@ -4,12 +4,28 @@ var dotenv = require('dotenv').config();
 var argvLength = process.argv.slice(2);
 var repoOwner = process.argv[2];
 var repoName = process.argv[3];
-//Make Name and Token secret using dotenv module
-var GITHUB_USER = process.env.NAME;
-var GITHUB_TOKEN = process.env.TOKEN;
+
+//Throws error if .env folder is missing
+if (!fs.existsSync('.env')){
+  console.log('.env folder does not exist');
+  throw err;
+}
+
+if(process.env.NAME && process.env.TOKEN){
+  var GITHUB_USER = process.env.NAME;
+  var GITHUB_TOKEN = process.env.TOKEN;
+}else{
+  console.log('The .env folder is missing information');
+  throw err;
+}
 
 if(argvLength.length < 2 ){
   console.log('Please give us a name and repository!');
+  throw err;
+}
+
+if(argvLength.length > 2 ){
+  console.log('You gave too many inputs!\nPlease only give us a name and repository!');
   throw err;
 }
 
@@ -47,7 +63,11 @@ function downloadImageByURL(url, filePath) {
 getRepoContributors(repoOwner, repoName, function(err, result) {
 
   var parse = JSON.parse(result.body);
-
+  //Throws an error if there are bad credentials
+  if(parse.message === 'Bad credentials'){
+    console.log('Error, you have included',parse.message + '!\nPlease check your github TOKEN in the .env folder');
+    throw err;
+  }
   parse.forEach(function(name){
     console.log('Image of User: ', name.login, 'has been successfully downloaded in the avatars folder.');
     console.log('------');
