@@ -24,7 +24,7 @@ var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com
     }
   }
   // request.UserAgent = "myTestApp";
-  console.log(requestOptions)
+  // console.log(requestOptions)
   // console.log(requestOptions);
   request.get(requestOptions, cb);
     // console.log(res, res.statusCode)
@@ -34,6 +34,11 @@ var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com
 
 getRepoContributors(repoOwner, repoName, function(err, result) {
   console.log('Errors:', err);
-  console.log('Result:', result.body);
+
+  var parse = JSON.parse(result.body)
+
+  parse.forEach(function(x){
+    console.log(x.avatar_url)
+  })
 });
 
