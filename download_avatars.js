@@ -3,6 +3,8 @@ var fs = require('fs');
 var argvLength = process.argv.slice(2);
 var repoOwner = process.argv[2];
 var repoName = process.argv[3];
+var GITHUB_USER = 'johnkmeas';
+var GITHUB_TOKEN = '981ab67211d4b78be4d0ef31f184366031a5d1da';
 
 if(argvLength.length < 2 ){
   console.log('Please give us a name and repository!');
@@ -10,9 +12,6 @@ if(argvLength.length < 2 ){
 }
 
 console.log('Welcome to the GitHub Avatar Downloader!');
-
-var GITHUB_USER = 'johnkmeas';
-var GITHUB_TOKEN = '981ab67211d4b78be4d0ef31f184366031a5d1da';
 
 function getRepoContributors(repoOwner, repoName, cb) {
 
@@ -30,7 +29,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
 function downloadImageByURL(url, filePath) {
 
   var dir = './avatars';
-
+  //Creates a directory for avatars if it doesn't already exist
   if (!fs.existsSync(dir)){
       fs.mkdirSync(dir);
   }
@@ -39,7 +38,7 @@ function downloadImageByURL(url, filePath) {
     .on('error', function (err) {
       throw err;
     }).on('response', function(response) {
-      console.log('status result: ',response.statusCode); // 200
+      console.log('status result: ',response.statusCode);
   }).pipe(fs.createWriteStream(dir + '/' + filePath));
 }
 
