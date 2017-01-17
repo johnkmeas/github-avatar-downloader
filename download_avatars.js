@@ -46,12 +46,12 @@ getRepoContributors(repoOwner, repoName, function(err, result) {
 
   var parse = JSON.parse(result.body);
 
-  parse.forEach(function(x){
-    console.log('Image of User: ',x.login, 'has been successfully downloaded in the avatars folder.');
+  parse.forEach(function(name){
+    console.log('Image of User: ', name.login, 'has been successfully downloaded in the avatars folder.');
     console.log('------');
 
     //Calling function to download the images from the repository
-    downloadImageByURL(x.avatar_url, x.login +'.jpg' );
+    downloadImageByURL(name.avatar_url, name.login +'.jpg' );
   });
 });
 
