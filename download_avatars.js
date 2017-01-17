@@ -1,10 +1,12 @@
 var request = require('request');
 var fs = require('fs');
+var dotenv = require('dotenv').config();
 var argvLength = process.argv.slice(2);
 var repoOwner = process.argv[2];
 var repoName = process.argv[3];
-var GITHUB_USER = 'johnkmeas';
-var GITHUB_TOKEN = '981ab67211d4b78be4d0ef31f184366031a5d1da';
+//Make Name and Token secret using dotenv module
+var GITHUB_USER = process.env.NAME;
+var GITHUB_TOKEN = process.env.TOKEN;
 
 if(argvLength.length < 2 ){
   console.log('Please give us a name and repository!');
